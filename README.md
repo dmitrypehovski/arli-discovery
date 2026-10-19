@@ -8,8 +8,10 @@ steps. The text is the promise; a test in this directory keeps the promise inter
 consistent, and a test in the engine repository checks that the engine depends on this text
 and not on some copy of it.
 
-Status: **not published**. Nothing here has been pushed to a public repository. Publication
-waits for the legal check in `PUBLISHING.md`.
+Status: **the text is published**. It is readable at https://arliwork.com/spec/ and clonable
+from https://arliwork.com/plugin/arli-spec.git, both on our own domain. It is not listed in any
+public index and no announcement has been made. The reference implementation is not published
+yet: see `PUBLISHING.md` for why it is held.
 
 ## What is here
 

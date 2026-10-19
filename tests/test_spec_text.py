@@ -72,11 +72,14 @@ def test_license_and_notice_are_in_place_and_official():
 
 def test_the_house_rules_are_stated():
     readme = _read("README.md")
-    assert "not published" in readme
+    assert "the text is published" in readme
+    assert "https://arliwork.com/spec/" in readme
     assert "separate artefact" in readme
     plan = _read("PUBLISHING.md")
     for kept in ("network and the service", "conformance mark"):
         assert kept in plan
+    # состояние публикации обязано быть названо точно: текст вышел, код держим
+    assert "the text is published, the code is held" in plan
     policy = _read("TRADEMARK.md")
     assert "ARLI verified" in policy
 

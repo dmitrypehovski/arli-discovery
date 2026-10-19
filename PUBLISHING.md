@@ -1,8 +1,14 @@
 # Publication plan for the extension
 
-Status: prepared, **not published**. Nothing here has been pushed to a public repository or
-to a registry, and no licence has been applied to a public copy. Publishing is a deliberate
-step, taken after the legal check below.
+Status: **the text is published, the code is held.** As of 20.10.2026 the normative text and
+its history are readable at https://arliwork.com/spec/ and clonable from
+https://arliwork.com/plugin/arli-spec.git. Nothing is listed in a public index, and no
+announcement has been made, so this is publication to whoever looks rather than a launch.
+
+The reference implementation is prepared and one command away from publication. It is held on
+one item of the checklist below: the export-control review of shipping an implementation of
+ECDH and blind RSA signatures, with the rotation of keys described in the text. Hold lifted or
+confirmed, it goes out the same day.
 
 ## What we publish, and what we keep
 
@@ -62,7 +68,13 @@ This is a checklist for counsel, not a settled question. The publisher is a Chin
 3. Publication of the text and the reference implementation under Apache-2.0.
 4. Conformance service and the mark, as a separate commercial step.
 
-Steps 1 and 2 are the current state. Step 3 and step 4 are not started.
+Steps 1 and 2 are done for the text, and the text part of step 3 is done. The code part of
+step 3 is held. Step 4 is not started.
+
+What publishing changed in practice: the legal check is no longer a gate on the text, and the
+checklist items that concerned the text only are now settled by the fact of publication. Item
+1 of the checklist still governs the code, and item 3 still governs any example carrying real
+feature names.
 
 ## State of the houses
 
