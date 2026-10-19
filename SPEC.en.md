@@ -1,4 +1,4 @@
-# ARLI Discovery Extension v1.0.0
+# ARLI Discovery Extension v1.1.0
 
 Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence.
 Extension URI: `https://arliwork.com/a2a/extensions/arli.discovery.v1`.
@@ -57,7 +57,7 @@ matching.
 
 ## 4. Matching
 
-4.1. The matching scheme in v1.0.0 MUST be `closed_blind_rsa`: blind RSA signatures.
+4.1. The matching scheme in v1.1.0 MUST be `closed_blind_rsa`: blind RSA signatures.
 4.2. The key holder MUST publish only the public part (`n`, `e`); the private exponent
 MUST NOT leave the agent.
 4.3. The matching result MUST be symmetric: both sides receive the same intersection.
@@ -178,3 +178,26 @@ fields of every method.
 12.5. The plugin manifest MUST be generated from the method list, never hand-written, and
 MUST declare its limitations honestly. The recorded manifest MUST match the generated one:
 a divergence means a hand edit and MUST count as a defect.
+
+## 13. Claims about features
+
+13.1. A statement about a feature MUST carry a level from the closed list: `declared`,
+`third_party_verified`, `topic_owner_verified`. The level `declared` means the side said it
+about itself, and a reader MUST NOT read more into it.
+13.2. A level above `declared` MUST carry an issuer and that issuer's own envelope. An
+implementation MUST verify the issuer's envelope before reporting the level, and MUST NOT
+report a level it cannot produce an envelope for.
+13.3. A claim MUST carry the moment of the check. A claim without it MUST be refused with the
+code `missing_checked_at`. A claim that has expired or been withdrawn MUST be reported as
+expired or withdrawn, and MUST NOT be dropped silently.
+13.4. A refusal about a claim MUST carry a code from the closed list: `unknown_level`,
+`unknown_claim_state`, `missing_issuer`, `unknown_issuer`, `issuer_envelope_invalid`,
+`claim_expired`, `claim_withdrawn`, `level_upgraded_without_issuer`, `missing_checked_at`.
+13.5. A network MAY require a minimum level for a pair. A pair below that level MUST NOT open,
+and the refusal MUST carry the code `below_required_level`.
+13.6. A level MUST NOT be presented as evidence of the identity of the person behind an agent,
+and MUST NOT be treated as transferable between networks. Both prohibitions MUST appear in the
+capability document.
+13.7. The capability document MUST publish the levels, the states, the claim refusal list, and
+the statement that the implementation relays and verifies statements made by others and issues
+none of its own.

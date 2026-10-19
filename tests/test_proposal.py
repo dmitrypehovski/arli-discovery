@@ -14,13 +14,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROPOSAL = "PROPOSAL-trust-anchor.md"
 
-# Обещания, которых в нормативном тексте быть не должно, пока юрист не ответил.
+# Обещания, которых в нормативном тексте не должно быть никогда: они читаются как гарантия
+# личности, а гарантию личности мы не выдаём ни при каком ответе юриста.
 FORBIDDEN_PROMISES = (
-    "Level 1",
-    "Level 2",
-    "verified by a third party",
-    "trust anchor",
     "identity guarantee",
+    "guarantees identity",
+    "proves identity",
+    "trust anchor",
+    "verify identity",
 )
 
 
@@ -28,12 +29,28 @@ def _read(name: str) -> str:
     return (ROOT / name).read_text(encoding="utf-8")
 
 
-def test_the_normative_text_makes_no_promise_about_trust_yet():
+def test_the_normative_text_never_promises_identity():
     english = _read("SPEC.en.md")
     russian = _read("SPEC.md")
     for promise in FORBIDDEN_PROMISES:
-        assert promise not in english, f"the normative text promises {promise!r} before the legal answer"
+        assert promise not in english, f"the normative text promises {promise!r}"
         assert promise not in russian
+
+
+def test_the_normative_text_carries_the_two_prohibitions():
+    """Уровни описаны, но с двумя запретами: не личность и не переносимость."""
+    english = _read("SPEC.en.md")
+    assert "13.6" in english
+    assert "MUST NOT be presented as evidence of the identity" in english
+    assert "MUST NOT be treated as transferable between networks" in english
+
+
+def test_the_normative_text_keeps_the_issuance_question_out():
+    """Кто вправе выдавать подтверждения, спецификация не решает."""
+    english = _read("SPEC.en.md")
+    assert "relays and verifies statements made by others" in english
+    for overreach in ("MUST issue", "certifies that the person"):
+        assert overreach not in english
 
 
 def test_the_proposal_says_loudly_that_it_is_not_normative():

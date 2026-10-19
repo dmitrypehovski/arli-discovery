@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ARLI Discovery Extension v1.0.0</title>
+  <title>ARLI Discovery Extension v1.1.0</title>
   <style>
     :root { --accent: #c4a97d; --ink: #1c1c1a; --muted: #6f6b62; --rule: #e6e1d6; }
     * { box-sizing: border-box; }
@@ -35,7 +35,7 @@
 <body>
   <div class="wrap">
     <header>
-      <h1>ARLI Discovery Extension v1.0.0</h1>
+      <h1>ARLI Discovery Extension v1.1.0</h1>
     <p>Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence. Extension URI: <code>https://arliwork.com/a2a/extensions/arli.discovery.v1</code>.</p>
     <p>The words <strong>MUST</strong>, <strong>MUST NOT</strong>, <strong>SHOULD</strong> and <strong>MAY</strong> carry the force they carry in normative documents. An implementation that conforms to this text is answered "conforms" by the conformance suite (<code>python -m arli_engine.conformance</code>). Where the suite and this text disagree, the suite is right: the suite is the promise.</p>
     <p>Scope. The extension describes the discovery layer only: the intent object, the honest capability list, key agreement, matching, the evidence envelope, the negotiation grammar and human consent. Transport, tasks and messages are taken from A2A as they are.</p>
@@ -56,6 +56,7 @@
       <li><a href="#10-conformance">10. Conformance</a></li>
       <li><a href="#11-versions-and-transition">11. Versions and transition</a></li>
       <li><a href="#12-bindings">12. Bindings</a></li>
+      <li><a href="#13-claims-about-features">13. Claims about features</a></li>
       </ol>
     </nav>
   <section id="1-intent">
@@ -84,7 +85,7 @@
   </section>
   <section id="4-matching">
     <h2>4. Matching</h2>
-      <p class="clause"><span class="id">4.1</span>The matching scheme in v1.0.0 MUST be <code>closed_blind_rsa</code>: blind RSA signatures.</p>
+      <p class="clause"><span class="id">4.1</span>The matching scheme in v1.1.0 MUST be <code>closed_blind_rsa</code>: blind RSA signatures.</p>
       <p class="clause"><span class="id">4.2</span>The key holder MUST publish only the public part (<code>n</code>, <code>e</code>); the private exponent MUST NOT leave the agent.</p>
       <p class="clause"><span class="id">4.3</span>The matching result MUST be symmetric: both sides receive the same intersection.</p>
       <p class="clause"><span class="id">4.4</span>Offline enumeration of the other side's set MUST be impossible: the received values MUST NOT be comparable with guesses without the holder's private exponent.</p>
@@ -159,8 +160,18 @@
       <p class="clause"><span class="id">12.4</span>The capability document MUST publish all bindings, the naming rule and the required fields of every method.</p>
       <p class="clause"><span class="id">12.5</span>The plugin manifest MUST be generated from the method list, never hand-written, and MUST declare its limitations honestly. The recorded manifest MUST match the generated one: a divergence means a hand edit and MUST count as a defect.</p>
   </section>
+  <section id="13-claims-about-features">
+    <h2>13. Claims about features</h2>
+      <p class="clause"><span class="id">13.1</span>A statement about a feature MUST carry a level from the closed list: <code>declared</code>, <code>third_party_verified</code>, <code>topic_owner_verified</code>. The level <code>declared</code> means the side said it about itself, and a reader MUST NOT read more into it.</p>
+      <p class="clause"><span class="id">13.2</span>A level above <code>declared</code> MUST carry an issuer and that issuer's own envelope. An implementation MUST verify the issuer's envelope before reporting the level, and MUST NOT report a level it cannot produce an envelope for.</p>
+      <p class="clause"><span class="id">13.3</span>A claim MUST carry the moment of the check. A claim without it MUST be refused with the code <code>missing_checked_at</code>. A claim that has expired or been withdrawn MUST be reported as expired or withdrawn, and MUST NOT be dropped silently.</p>
+      <p class="clause"><span class="id">13.4</span>A refusal about a claim MUST carry a code from the closed list: <code>unknown_level</code>, <code>unknown_claim_state</code>, <code>missing_issuer</code>, <code>unknown_issuer</code>, <code>issuer_envelope_invalid</code>, <code>claim_expired</code>, <code>claim_withdrawn</code>, <code>level_upgraded_without_issuer</code>, <code>missing_checked_at</code>.</p>
+      <p class="clause"><span class="id">13.5</span>A network MAY require a minimum level for a pair. A pair below that level MUST NOT open, and the refusal MUST carry the code <code>below_required_level</code>.</p>
+      <p class="clause"><span class="id">13.6</span>A level MUST NOT be presented as evidence of the identity of the person behind an agent, and MUST NOT be treated as transferable between networks. Both prohibitions MUST appear in the capability document.</p>
+      <p class="clause"><span class="id">13.7</span>The capability document MUST publish the levels, the states, the claim refusal list, and the statement that the implementation relays and verifies statements made by others and issues none of its own.</p>
+  </section>
     <footer>
-      <p>65 clauses in 12 sections. Source: <code>SPEC.en.md</code>.
+      <p>72 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
       Licence: Apache-2.0. The name ARLI and the conformance mark are reserved, see TRADEMARK.md.</p>
       <p>Conformance suite:<br><code>python -m arli_engine.conformance --target &lt;url&gt; [--holder &lt;url&gt;]</code></p>
     </footer>
