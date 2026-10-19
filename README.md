@@ -18,6 +18,9 @@ waits for the legal check in `PUBLISHING.md`.
   text, and a test fails if they diverge.
 - `CHANGELOG.md`: the extension version history and the transition rules.
 - `PUBLISHING.md`: what is published, what stays ours, and the legal checklist.
+- `PROPOSAL-trust-anchor.md`: the draft for legal review about verifying features. Marked
+  as not normative and not implemented: the normative text makes no promise about trust
+  levels, and a test fails if it ever does before the legal answer.
 - `docs/spec.html`: the readable page, generated from `SPEC.en.md`, never hand-written.
 - `tools/build_page.py`: the generator.
 - `LICENSE`, `NOTICE`, `TRADEMARK.md`: the licence terms of the text itself.
