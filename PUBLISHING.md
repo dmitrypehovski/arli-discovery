@@ -62,4 +62,22 @@ This is a checklist for counsel, not a settled question. The publisher is a Chin
 3. Publication of the text and the reference implementation under Apache-2.0.
 4. Conformance service and the mark, as a separate commercial step.
 
-Steps 1 and 2 are the current state of this directory. Steps 3 and 4 are not started.
+Steps 1 and 2 are the current state. Step 3 and step 4 are not started.
+
+## State of the houses
+
+The text lives in its own repository with its own history, on branch `main`, one commit so
+far. It is not nested inside the engine repository: the engine changes more often and for
+other reasons, and a shared history would entangle the promise with the implementation.
+The engine references this directory through the `ARLI_SPEC_DIR` setting and keeps no copy.
+
+What an outsider can do today with a copy of this directory: read the normative text, rebuild
+the page, run the eight checks that keep the two texts aligned. What an outsider cannot do yet:
+there is no public address, and the reference implementation is not published either.
+
+Python is required for the checks and for the page build:
+
+```
+python -m pytest tests -q
+python -m tools.build_page
+```
