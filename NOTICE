@@ -1,0 +1,13 @@
+ARLI Discovery Extension, normative text
+Copyright 2026 Shenzhen Capernaum Technology Co., Ltd. (ARLI)
+
+This directory holds the normative specification text of the ARLI Discovery Extension and
+its translations. The text is licensed under the Apache License, Version 2.0 (see LICENSE),
+so that anyone may implement the extension, including for commercial use.
+
+The name ARLI, the ARLI logo and the "ARLI verified" conformance mark are NOT licensed under
+Apache-2.0. They remain the property of Shenzhen Capernaum Technology Co., Ltd. See
+TRADEMARK.md. Passing the conformance suite does not grant the right to use the mark.
+
+The reference implementation lives in a separate repository and is licensed under the same
+terms. Its version moves independently from the version of this text.

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ARLI Discovery Extension v1.0.0</title>
+  <style>
+    :root { --accent: #c4a97d; --ink: #1c1c1a; --muted: #6f6b62; --rule: #e6e1d6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #fbfaf7; color: var(--ink);
+      font: 16px/1.65 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .wrap { max-width: 820px; margin: 0 auto; padding: 48px 20px 96px; }
+    header h1 { font-size: 30px; line-height: 1.25; margin: 0 0 12px; }
+    .status { border-left: 3px solid var(--accent); background: #fff; padding: 12px 14px;
+      color: var(--muted); font-size: 14.5px; margin: 18px 0 28px; }
+    nav { border: 1px solid var(--rule); background: #fff; padding: 14px 18px; border-radius: 6px; }
+    nav h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--muted); margin: 0 0 10px; }
+    nav ol { margin: 0; padding-left: 20px; columns: 2; }
+    nav a { color: var(--ink); text-decoration: none; }
+    nav a:hover { color: var(--accent); }
+    section { margin-top: 40px; }
+    section h2 { font-size: 20px; margin: 0 0 6px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule); }
+    .clause { margin: 14px 0; }
+    .clause .id { display: inline-block; min-width: 48px; color: var(--accent);
+      font-weight: 600; }
+    code { background: #f2efe7; padding: 1px 5px; border-radius: 3px;
+      font: 13.5px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
+      color: var(--muted); font-size: 14px; }
+    @media (max-width: 560px) { nav ol { columns: 1; } .wrap { padding: 32px 16px 64px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>ARLI Discovery Extension v1.0.0</h1>
+    <p>Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence. Extension URI: <code>https://arliwork.com/a2a/extensions/arli.discovery.v1</code>.</p>
+    <p>The words <strong>MUST</strong>, <strong>MUST NOT</strong>, <strong>SHOULD</strong> and <strong>MAY</strong> carry the force they carry in normative documents. An implementation that conforms to this text is answered "conforms" by the conformance suite (<code>python -m arli_engine.conformance</code>). Where the suite and this text disagree, the suite is right: the suite is the promise.</p>
+    <p>Scope. The extension describes the discovery layer only: the intent object, the honest capability list, key agreement, matching, the evidence envelope, the negotiation grammar and human consent. Transport, tasks and messages are taken from A2A as they are.</p>
+      <p class="status">Status: not published. This page is generated from SPEC.en.md and is the same text the conformance suite is bound to. Publication waits for the legal check described in PUBLISHING.md.</p>
+    </header>
+    <nav>
+      <h2>Sections</h2>
+      <ol>
+      <li><a href="#1-intent">1. Intent</a></li>
+      <li><a href="#2-agent-capabilities">2. Agent capabilities</a></li>
+      <li><a href="#3-key-agreement-and-fingerprints">3. Key agreement and fingerprints</a></li>
+      <li><a href="#4-matching">4. Matching</a></li>
+      <li><a href="#5-evidence-envelope">5. Evidence envelope</a></li>
+      <li><a href="#6-negotiation">6. Negotiation</a></li>
+      <li><a href="#7-consent">7. Consent</a></li>
+      <li><a href="#8-retention-and-deletion">8. Retention and deletion</a></li>
+      <li><a href="#9-key-rotation-and-revocation">9. Key rotation and revocation</a></li>
+      <li><a href="#10-conformance">10. Conformance</a></li>
+      <li><a href="#11-versions-and-transition">11. Versions and transition</a></li>
+      <li><a href="#12-bindings">12. Bindings</a></li>
+      </ol>
+    </nav>
+  <section id="1-intent">
+    <h2>1. Intent</h2>
+      <p class="clause"><span class="id">1.1</span>An intent MUST carry the fields: <code>intent_id</code>, <code>owner</code>, <code>network</code>, <code>type</code>, <code>statement</code>, <code>status</code>, <code>provenance</code>.</p>
+      <p class="clause"><span class="id">1.2</span><code>type</code> MUST be one of: <code>person</code>, <code>supply</code>, <code>demand</code>. An intent of type <code>supply</code> is matched against <code>demand</code> on a shared topic; two <code>supply</code> intents MUST NOT count as a match with each other.</p>
+      <p class="clause"><span class="id">1.3</span><code>status</code> MUST be one of: <code>active</code>, <code>paused</code>, <code>archived</code>. Only <code>active</code> takes part in matching.</p>
+      <p class="clause"><span class="id">1.4</span><code>provenance</code> MUST be one of: <code>human</code>, <code>organisation</code>, <code>synthetic</code>. A network MUST declare whether it admits synthetic intents; by default a network is human, that is, it does not admit them. In such a network a synthetic intent MUST be refused with the code <code>synthetic_not_admitted</code> instead of taking part in matching.</p>
+      <p class="clause"><span class="id">1.5</span>An intent MUST carry a jurisdiction; retention rules follow it, not the location of the server.</p>
+  </section>
+  <section id="2-agent-capabilities">
+    <h2>2. Agent capabilities</h2>
+      <p class="clause"><span class="id">2.1</span>The agent card MUST be served at the standard address <code>/.well-known/agent-card.json</code> and MUST be signed with JWS (alg ES256). The protected header MUST carry <code>jwk</code>, so the other side can verify the card without receiving a key over a separate channel.</p>
+      <p class="clause"><span class="id">2.2</span>The signature MUST break on any edit of the card body.</p>
+      <p class="clause"><span class="id">2.3</span>Every operation of an agent MUST declare its effects across all seven keys: <code>mutates_artifact</code>, <code>launches_process</code>, <code>may_show_ui</code>, <code>may_access_network</code>, <code>may_write_filesystem</code>, <code>changes_permissions</code>, <code>requires_root</code>.</p>
+      <p class="clause"><span class="id">2.4</span>An undeclared effect MUST be treated as possible, not as absent.</p>
+      <p class="clause"><span class="id">2.5</span>An unavailable operation MUST remain in the list and MUST carry a reason with a code from the set: <code>available</code>, <code>unsupported_host</code>, <code>missing_dependency</code>, <code>not_configured</code>, <code>disabled_by_policy</code>.</p>
+      <p class="clause"><span class="id">2.6</span>The list MUST be served as a separate document <code>/.well-known/arli-capabilities.json</code> with the <code>fail_closed</code> flag.</p>
+  </section>
+  <section id="3-key-agreement-and-fingerprints">
+    <h2>3. Key agreement and fingerprints</h2>
+      <p class="clause"><span class="id">3.1</span>The pair key MUST be derived by ECDH on curve P-256 and HKDF-SHA256, with both agent identifiers and the session identifier as input. The pair key MUST NOT be transmitted over the wire.</p>
+      <p class="clause"><span class="id">3.2</span>A feature fingerprint MUST be bound to the session and to the canonical pair label, which is the same on both sides. Binding to the sender side MUST NOT be used: it breaks matching.</p>
+      <p class="clause"><span class="id">3.3</span>Neither side MUST send feature values; only fingerprints or blinded values leave.</p>
+      <p class="clause"><span class="id">3.4</span>One exchange MUST happen no more than once per pair and session.</p>
+  </section>
+  <section id="4-matching">
+    <h2>4. Matching</h2>
+      <p class="clause"><span class="id">4.1</span>The matching scheme in v1.0.0 MUST be <code>closed_blind_rsa</code>: blind RSA signatures.</p>
+      <p class="clause"><span class="id">4.2</span>The key holder MUST publish only the public part (<code>n</code>, <code>e</code>); the private exponent MUST NOT leave the agent.</p>
+      <p class="clause"><span class="id">4.3</span>The matching result MUST be symmetric: both sides receive the same intersection.</p>
+      <p class="clause"><span class="id">4.4</span>Offline enumeration of the other side's set MUST be impossible: the received values MUST NOT be comparable with guesses without the holder's private exponent.</p>
+      <p class="clause"><span class="id">4.5</span>The number of features in one exchange MUST be capped at 64. An excess MUST be refused with the code <code>too_many_features</code>, not truncated.</p>
+      <p class="clause"><span class="id">4.6</span>A matching call MUST declare a floor: <code>floor_basis_points</code> as an integer in the range 0..10000. A call without a floor MUST be refused with the code <code>missing_floor</code>; a floor out of range MUST be refused with the code <code>invalid_floor</code>.</p>
+      <p class="clause"><span class="id">4.7</span>A find below the declared floor MUST NOT be returned: the result MUST be empty, the envelope MUST carry <code>floor_basis_points</code> and <code>passed_floor</code>, and completeness MUST state that the result was not returned as below the floor.</p>
+      <p class="clause"><span class="id">4.8</span>Filling the result up to a limit MUST NOT be used.</p>
+      <p class="clause"><span class="id">4.9</span>A match score MUST either be computed with a declared method or be absent. A constant in place of a score MUST NOT be used.</p>
+      <p class="clause"><span class="id">4.10</span>The number of features on the other side MUST NOT be disclosed.</p>
+      <p class="clause"><span class="id">4.11</span>The capability document MUST publish the closed list of seven matching refusal codes: <code>too_many_features</code>, <code>missing_pair_key</code>, <code>missing_peer_key</code>, <code>missing_private_key</code>, <code>length_mismatch</code>, <code>missing_floor</code>, <code>invalid_floor</code>.</p>
+  </section>
+  <section id="5-evidence-envelope">
+    <h2>5. Evidence envelope</h2>
+      <p class="clause"><span class="id">5.1</span>Every conclusion and every refusal MUST be accompanied by an envelope with the fields: <code>evidence_id</code>, <code>provider</code>, <code>operation</code>, <code>parameters</code>, <code>normalized_result</code>, <code>confidence</code>, <code>authority</code>, <code>limitations</code>, <code>completeness</code>, <code>captured_at</code>.</p>
+      <p class="clause"><span class="id">5.2</span><code>evidence_id</code> MUST be recomputable from the envelope body. Fractional numbers in the body MUST NOT be used: they break reproducibility. Fractions are expressed as integer basis points.</p>
+      <p class="clause"><span class="id">5.3</span>The envelope MUST be signed with the agent key; the signature MUST sit beside the body so that <code>evidence_id</code> stays recomputable and an edit of the body breaks verification.</p>
+      <p class="clause"><span class="id">5.4</span><code>completeness</code> MUST list what is closed, what was dropped and for which reason. Absence of data MUST NOT be read as soundness.</p>
+      <p class="clause"><span class="id">5.5</span><code>confidence</code> MUST be from the set: <code>observed</code>, <code>derived</code>, <code>claimed</code>, <code>unknown</code>.</p>
+      <p class="clause"><span class="id">5.6</span><code>limitations</code> MUST name the limits of the method plainly, including what the scheme does not close.</p>
+  </section>
+  <section id="6-negotiation">
+    <h2>6. Negotiation</h2>
+      <p class="clause"><span class="id">6.1</span>A negotiation MUST have exactly two seats and one journal per pair.</p>
+      <p class="clause"><span class="id">6.2</span>Actions MUST be from the set: <code>propose</code>, <code>counter</code>, <code>accept</code>, <code>decline</code>.</p>
+      <p class="clause"><span class="id">6.3</span>The first turn MUST be made by the initiator and MUST be <code>propose</code> or <code>decline</code>.</p>
+      <p class="clause"><span class="id">6.4</span><code>accept</code> MUST be legal only immediately after a <code>propose</code> from the other side.</p>
+      <p class="clause"><span class="id">6.5</span>The turn limit MUST be 12. At the limit the negotiation MUST remain unsettled; it MUST NOT be declared a refusal.</p>
+      <p class="clause"><span class="id">6.6</span>A refusal MUST carry a code from the closed turn list: <code>not_a_seat</code>, <code>unknown_action</code>, <code>already_settled</code>, <code>turn_limit</code>, <code>not_your_turn</code>, <code>first_turn_is_propose_or_decline</code>, <code>seats_must_alternate</code>, <code>accept_without_offer</code>, <code>propose_over_offer</code>.</p>
+      <p class="clause"><span class="id">6.7</span>A pair MUST NOT be opened if at least one intent is not active, if it is synthetic in a network declared human, if the owner is the same, if the intents coincide, if the sides are from different networks or if the types are not complementary. A refusal MUST carry a code from the list: <code>intent_inactive</code>, <code>synthetic_not_admitted</code>, <code>same_owner</code>, <code>same_intent</code>, <code>network_mismatch</code>, <code>types_not_comparable</code>.</p>
+      <p class="clause"><span class="id">6.8</span>Both lists MUST be published by machine in the capability document together with the turn limit and the action list.</p>
+      <p class="clause"><span class="id">6.9</span>The capability document MUST publish the intent types, the statuses, the admitted provenance and the intent refusal list: <code>unknown_type</code>, <code>unknown_status</code>, <code>unknown_provenance</code>, <code>synthetic_not_admitted</code>, <code>intent_inactive</code>, <code>types_not_comparable</code>, <code>network_mismatch</code>.</p>
+  </section>
+  <section id="7-consent">
+    <h2>7. Consent</h2>
+      <p class="clause"><span class="id">7.1</span>Agent consent MUST NOT open a connection. The human decision MUST be a separate act.</p>
+      <p class="clause"><span class="id">7.2</span>Silence, an error and a timeout MUST NOT count as consent or as refusal.</p>
+      <p class="clause"><span class="id">7.3</span>One seat MUST NOT decide for the other.</p>
+      <p class="clause"><span class="id">7.4</span>A repeated decision MUST be refused.</p>
+      <p class="clause"><span class="id">7.5</span>A late "yes" MUST NOT undo an earlier refusal.</p>
+  </section>
+  <section id="8-retention-and-deletion">
+    <h2>8. Retention and deletion</h2>
+      <p class="clause"><span class="id">8.1</span>Raw feature values MUST NOT be stored on the server; fingerprints are kept for the duration of the session, together with envelopes.</p>
+      <p class="clause"><span class="id">8.2</span>The retention period of envelopes MUST be declared and is 30 days by default.</p>
+      <p class="clause"><span class="id">8.3</span>Archiving an intent MUST remove it from matching and mark the related envelopes deleted.</p>
+      <p class="clause"><span class="id">8.4</span>Envelopes carrying feature names MUST be treated as personal data and MUST NOT leave the region where the intent was created before a legal opinion.</p>
+      <p class="clause"><span class="id">8.5</span>The capability document MUST publish the retention period, the retention refusal list (<code>unknown_envelope</code>, <code>already_deleted</code>, <code>unknown_intent</code>) and the statement that raw feature values are not stored on the server.</p>
+  </section>
+  <section id="9-key-rotation-and-revocation">
+    <h2>9. Key rotation and revocation</h2>
+      <p class="clause"><span class="id">9.1</span>A key change MUST invalidate the previous card.</p>
+      <p class="clause"><span class="id">9.2</span>Principal revocation MUST be a separate record with a time and a reason and MUST NOT be replaced by a key change. Revocation MUST block the issuing of new keys under the same identifier until a separate re-confirmation.</p>
+      <p class="clause"><span class="id">9.3</span>The capability document MUST publish the key revocation reasons (<code>rotated</code>, <code>compromised</code>, <code>principal_request</code>, <code>policy</code>) and the registry refusal list (<code>unknown_key</code>, <code>key_revoked</code>, <code>key_expired</code>, <code>key_not_yet_valid</code>, <code>principal_revoked</code>, <code>principal_not_confirmed</code>, <code>unknown_revocation_reason</code>).</p>
+  </section>
+  <section id="10-conformance">
+    <h2>10. Conformance</h2>
+      <p class="clause"><span class="id">10.1</span>The conformance suite MUST be run against an implementation address: <code>python -m arli_engine.conformance --target &lt;url&gt; [--holder &lt;url&gt;]</code>.</p>
+      <p class="clause"><span class="id">10.2</span>The suite MUST answer either "conforms" or the exact list of divergences with check codes.</p>
+      <p class="clause"><span class="id">10.3</span>The suite MUST contain deliberately wrong implementations and MUST catch each of them. A suite that passes against any implementation MUST be considered void.</p>
+  </section>
+  <section id="11-versions-and-transition">
+    <h2>11. Versions and transition</h2>
+      <p class="clause"><span class="id">11.1</span>The extension version MUST follow semantic versioning.</p>
+      <p class="clause"><span class="id">11.2</span>An incompatible change MUST raise the major version and MUST be described in the transition section, stating what is deprecated.</p>
+      <p class="clause"><span class="id">11.3</span>A deprecated field MUST be announced at least one minor version before removal.</p>
+  </section>
+  <section id="12-bindings">
+    <h2>12. Bindings</h2>
+      <p class="clause"><span class="id">12.1</span>The agent surface is one. A binding (A2A over HTTP, MCP over streams) MUST NOT add or hide methods: the MCP tool list MUST match the method list one to one, one tool per method.</p>
+      <p class="clause"><span class="id">12.2</span>An MCP tool name MUST be a method name with slashes replaced by underscores, and the translation MUST be reversible: exactly one method MUST be recoverable from a tool name.</p>
+      <p class="clause"><span class="id">12.3</span>A refusal reason MUST reach the caller as the engine's code, not as a generic error. A tool that returns the word "error" in place of a code violates this specification.</p>
+      <p class="clause"><span class="id">12.4</span>The capability document MUST publish all bindings, the naming rule and the required fields of every method.</p>
+      <p class="clause"><span class="id">12.5</span>The plugin manifest MUST be generated from the method list, never hand-written, and MUST declare its limitations honestly. The recorded manifest MUST match the generated one: a divergence means a hand edit and MUST count as a defect.</p>
+  </section>
+    <footer>
+      <p>65 clauses in 12 sections. Source: <code>SPEC.en.md</code>.
+      Licence: Apache-2.0. The name ARLI and the conformance mark are reserved, see TRADEMARK.md.</p>
+      <p>Conformance suite:<br><code>python -m arli_engine.conformance --target &lt;url&gt; [--holder &lt;url&gt;]</code></p>
+    </footer>
+  </div>
+</body>
+</html>

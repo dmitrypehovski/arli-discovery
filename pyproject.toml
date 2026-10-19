@@ -1,0 +1,10 @@
+[project]
+name = "arli-discovery-spec"
+version = "1.0.0"
+description = "Normative text of the ARLI Discovery Extension, kept apart from the code"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
