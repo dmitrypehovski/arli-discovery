@@ -7,7 +7,7 @@ made, so this is publication to whoever looks rather than a launch.
 Addresses, and which one is which:
 
 - https://github.com/dmitrypehovski/arli-discovery, the normative text and its history
-- https://github.com/dmitrypehovski/arli-engine, the reference implementation
+- https://github.com/dmitrypehovski/arli-discovery-engine, the reference implementation
 - https://arliwork.com/spec/, the readable page, generated from the text
 - https://arliwork.com/plugin/arli-spec.git and .../arli-engine.git, mirrors on our own domain
 

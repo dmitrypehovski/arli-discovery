@@ -95,7 +95,7 @@ def test_the_publication_plan_names_both_addresses_honestly():
     """Переносы строк не должны прятать смысл: сверяем текст с приведёнными пробелами."""
     plan = " ".join(_read("PUBLISHING.md").split())
     assert "https://github.com/dmitrypehovski/arli-discovery" in plan
-    assert "https://github.com/dmitrypehovski/arli-engine" in plan
+    assert "https://github.com/dmitrypehovski/arli-discovery-engine" in plan
     assert "personal account" in plan
     # перенос в организацию обязан быть назван как сохраняющий историю и ссылки
     assert "a transfer keeps the history and the links" in plan
