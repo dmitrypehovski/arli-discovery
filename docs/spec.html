@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ARLI Discovery Extension v1.6.0</title>
+  <title>ARLI Discovery Extension v1.7.0</title>
   <style>
     :root { --accent: #c4a97d; --ink: #1c1c1a; --muted: #6f6b62; --rule: #e6e1d6; }
     * { box-sizing: border-box; }
@@ -39,7 +39,7 @@
 <body>
   <div class="wrap">
     <header>
-      <h1>ARLI Discovery Extension v1.6.0</h1>
+      <h1>ARLI Discovery Extension v1.7.0</h1>
       <div class="plain-intro">
         <p><b>What this is.</b> The rules of the discovery extension, written so two independent teams
         can build it and agree on the result. It is the text implementations are measured against.</p>
@@ -116,6 +116,9 @@
       <p class="clause"><span class="id">4.15</span>The intersection MUST be compared as canonical tokens, and each side MUST be told which of its own features matched in that side's own spelling. An implementation that compares the strings as typed MUST NOT be reported as conformant.</p>
       <p class="clause"><span class="id">4.16</span>A holder MAY issue one key for an epoch instead of one key per session. The epoch MUST have a stated duration, MUST NOT be extended silently, and MUST NOT live for ever: a table that never expires is a dictionary an attacker accumulates against. <code>arli/psi/keys</code> and <code>arli/psi/sign</code> MUST carry <code>epoch_id</code>, an epoch key MUST be bound to the session it was issued to, and a session whose epoch has expired MUST be refused with <code>missing_private_key</code> rather than signed under a new key.</p>
       <p class="clause"><span class="id">4.17</span>The holder's signed tokens over its own list MAY be computed once per epoch and reused across every seeker in it, and MUST NOT outlive the epoch that produced them. Within one epoch two seekers receive the same token for the same item, so a holder MUST state this where it states its epoch duration. Signing the seeker's blinded values is per exchange and MUST NOT be cached across sessions.</p>
+      <p class="clause"><span class="id">4.18</span>An agent MUST be able to publish, on request, a coarse profile of itself: buckets with the count of its items in each, the name of the bucket space those buckets are resolved in, its kind and its city. The profile MUST NOT contain any feature value, any list, or any item of another side. A bucket is visible to whoever receives the profile, and that is the price of being findable.</p>
+      <p class="clause"><span class="id">4.19</span>The name of the bucket space MUST be published with the profile. Profiles in different bucket spaces MUST NOT be compared, because a shared bucket name across two spaces means nothing and a missing shared bucket across two spaces is not evidence of a missing match. An agent whose profile is in another space, which publishes no profile, or whose items cannot be placed in the requested space, MUST NOT be treated as not matching on that ground: it MAY be asked, and a search that asks it for that reason MUST say so.</p>
+      <p class="clause"><span class="id">4.20</span>A search that selects by profile MUST report the number of agents it skipped without an exchange, and MUST state that the skipped agents were not asked. A search MUST NOT present a selection as a complete result.</p>
   </section>
   <section id="5-evidence-envelope">
     <h2>5. Evidence envelope</h2>
@@ -202,7 +205,7 @@
       <p class="clause"><span class="id">12.6</span>A refusal about the call itself MUST carry a code from the closed list: <code>missing_field</code>, <code>unknown_method</code>, <code>parse_error</code>, <code>bad_type</code>, <code>nonce_too_short</code>, <code>purpose_required</code>, <code>rate_limited</code>. A caller MUST be able to tell a malformed call from a failure of the implementation.</p>
   </section>
     <footer>
-      <p>89 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
+      <p>92 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
       Licence: Apache-2.0. The name ARLI and the conformance mark are reserved, see TRADEMARK.md.</p>
       <p>Conformance suite:<br><code>python -m arli_engine.conformance --target &lt;url&gt; [--holder &lt;url&gt;]</code></p>
     </footer>

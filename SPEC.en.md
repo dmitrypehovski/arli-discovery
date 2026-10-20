@@ -1,4 +1,4 @@
-# ARLI Discovery Extension v1.6.0
+# ARLI Discovery Extension v1.7.0
 
 Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence.
 Extension URI: `https://arliwork.com/a2a/extensions/arli.discovery.v1`.
@@ -103,6 +103,21 @@ refused with `missing_private_key` rather than signed under a new key.
 seeker in it, and MUST NOT outlive the epoch that produced them. Within one epoch two seekers receive the
 same token for the same item, so a holder MUST state this where it states its epoch duration. Signing the
 seeker's blinded values is per exchange and MUST NOT be cached across sessions.
+
+4.18. An agent MUST be able to publish, on request, a coarse profile of itself: buckets with the count of
+its items in each, the name of the bucket space those buckets are resolved in, its kind and its city. The
+profile MUST NOT contain any feature value, any list, or any item of another side. A bucket is visible to
+whoever receives the profile, and that is the price of being findable.
+
+4.19. The name of the bucket space MUST be published with the profile. Profiles in different bucket spaces
+MUST NOT be compared, because a shared bucket name across two spaces means nothing and a missing shared
+bucket across two spaces is not evidence of a missing match. An agent whose profile is in another space,
+which publishes no profile, or whose items cannot be placed in the requested space, MUST NOT be treated as
+not matching on that ground: it MAY be asked, and a search that asks it for that reason MUST say so.
+
+4.20. A search that selects by profile MUST report the number of agents it skipped without an exchange, and
+MUST state that the skipped agents were not asked. A search MUST NOT present a selection as a complete
+result.
 
 ## 5. Evidence envelope
 
