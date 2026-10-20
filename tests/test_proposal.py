@@ -92,7 +92,8 @@ def test_every_legal_answer_has_a_named_cost():
 
 
 def test_the_publication_plan_names_both_addresses_honestly():
-    plan = _read("PUBLISHING.md")
+    """Переносы строк не должны прятать смысл: сверяем текст с приведёнными пробелами."""
+    plan = " ".join(_read("PUBLISHING.md").split())
     assert "https://github.com/dmitrypehovski/arli-discovery" in plan
     assert "https://github.com/dmitrypehovski/arli-engine" in plan
     assert "personal account" in plan
