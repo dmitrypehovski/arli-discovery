@@ -1,4 +1,4 @@
-# ARLI Discovery Extension v1.4.0
+# ARLI Discovery Extension v1.5.0
 
 Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence.
 Extension URI: `https://arliwork.com/a2a/extensions/arli.discovery.v1`.
@@ -142,6 +142,15 @@ MUST equal the seat witnessed, and the envelope MUST verify with the key from th
 name the same seat and action. A turn MUST NOT be recorded without a proof that passes.
 6.12. A witnessed turn MUST be legal in the receiving side's own journal: the seats alternate,
 the turn limit of clause 6.5 applies, and a settled negotiation accepts nothing.
+
+6.13. An exchange MAY be opened directly by one side at the other's address. The absence of a room MUST
+NOT make an exchange invalid, and no third party MUST be required for one to be valid.
+6.14. The initiating side MUST fetch and verify the counterparty's card before the first call. If the
+card's signature does not hold, the initiator MUST NOT open, and MUST report the local outcome
+`peer_card_unverified` with the reasons. This is a refusal by the caller, not a call on the wire, so it
+is not added to the closed list of call refusals in clause 12.6.
+6.15. A direct exchange MUST use the same methods, the same turn grammar, the same witness rule and the
+same vocabulary as one run through a room. The only difference is who starts.
 
 ## 7. Consent
 
