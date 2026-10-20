@@ -74,6 +74,9 @@ def test_the_house_rules_are_stated():
     readme = _read("README.md")
     assert "the text is published" in readme
     assert "https://arliwork.com/spec/" in readme
+    # адрес площадки и наш зеркальный адрес обязаны быть названы оба: читатель смотрит в разные места
+    assert "https://github.com/dmitrypehovski/arli-discovery" in readme
+    assert "https://arliwork.com/plugin/arli-spec.git" in readme
     assert "separate artefact" in readme
     plan = _read("PUBLISHING.md")
     for kept in ("network and the service", "conformance mark"):

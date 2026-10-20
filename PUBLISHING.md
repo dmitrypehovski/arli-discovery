@@ -1,9 +1,19 @@
 # Publication plan for the extension
 
 Status: **the text is published, the code is held.** As of 20.10.2026 the normative text and
-its history are readable at https://arliwork.com/spec/ and clonable from
+its history are readable at https://arliwork.com/spec/, published at
+https://github.com/dmitrypehovski/arli-discovery and mirrored at
 https://arliwork.com/plugin/arli-spec.git. Nothing is listed in a public index, and no
 announcement has been made, so this is publication to whoever looks rather than a launch.
+
+Which address is which. The code hosting platform is where contributions happen and where a
+reader looks first, so that is the canonical source; our own domain is the readable page and
+the mirror we control. Both carry the same text, and the version line at the top of the text
+says which version the reader is holding.
+
+Where it sits today, plainly: a personal account, because the company has no organisation on
+that platform. Moving a repository into an organisation keeps its history and its links, so
+this is a starting position, not a final one.
 
 The reference implementation is prepared and one command away from publication. It is held on
 one item of the checklist below: the export-control review of shipping an implementation of
