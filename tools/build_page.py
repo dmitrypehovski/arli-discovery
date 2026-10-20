@@ -148,6 +148,10 @@ def build_html(markdown: str, *, source_name: str = "SPEC.en.md") -> str:
       font-weight: 600; }}
     code {{ background: #f2efe7; padding: 1px 5px; border-radius: 3px;
       font: 13.5px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }}
+    .plain-intro {{ margin: 18px 0 6px; padding: 16px 18px; background: var(--card, #fff);
+      border: 1px solid var(--rule); border-radius: 10px; font-size: 15.5px; }}
+    .plain-intro p {{ margin: 0 0 8px; }}
+    .plain-intro p:last-child {{ margin-bottom: 0; }}
     footer {{ margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule);
       color: var(--muted); font-size: 14px; }}
     @media (max-width: 560px) {{ nav ol {{ columns: 1; }} .wrap {{ padding: 32px 16px 64px; }} }}
@@ -157,6 +161,16 @@ def build_html(markdown: str, *, source_name: str = "SPEC.en.md") -> str:
   <div class="wrap">
     <header>
       <h1>{html.escape(title)}</h1>
+      <div class="plain-intro">
+        <p><b>What this is.</b> The rules of the discovery extension, written so two independent teams
+        can build it and agree on the result. It is the text implementations are measured against.</p>
+        <p><b>Who has to read it.</b> Only those building or auditing an implementation. To use the
+        product, open <a href="https://match.arliwork.com">ARLI Match</a> and press one button. Nothing
+        here is needed for that.</p>
+        <p><b>Where the machine-readable copy lives.</b>
+        <a href="https://arliwork.com/a2a/extensions/arli.discovery.v1">arli.discovery.v1</a>, built from
+        this text rather than written by hand.</p>
+      </div>
 {header_html}
       <p class="status">{html.escape(STATUS_NOTICE)}</p>
     </header>
