@@ -111,7 +111,7 @@ MUST NOT be declared a refusal.
 a network declared human, if the owner is the same, if the intents coincide, if the sides
 are from different networks or if the types are not complementary. A refusal MUST carry a
 code from the list: `intent_inactive`, `synthetic_not_admitted`, `same_owner`, `same_intent`,
-`network_mismatch`, `types_not_comparable`.
+`network_mismatch`, `types_not_comparable`, `below_required_level`.
 6.8. Both lists MUST be published by machine in the capability document together with the
 turn limit and the action list.
 6.9. The capability document MUST publish the intent types, the statuses, the admitted

@@ -9,7 +9,20 @@ Addresses, and which one is which:
 - https://github.com/dmitrypehovski/arli-discovery, the normative text and its history
 - https://github.com/dmitrypehovski/arli-discovery-engine, the reference implementation
 - https://arliwork.com/spec/, the readable page, generated from the text
+- https://arliwork.com/a2a/extensions/arli.discovery.v1, the machine-readable definition,
+  which is what the extension URI actually resolves to
 - https://arliwork.com/plugin/arli-spec.git and .../arli-engine.git, mirrors on our own domain
+
+What the extension URI resolves to, and why it matters. The name of the extension points at
+our domain, so the name promises a place. Until today nothing was served there, which made the
+promise empty. The address now returns a machine-readable extract of the text: version, the
+thirteen code lists, the conformance command, the licence and the two prohibitions about
+levels. It is generated from `SPEC.en.md` by `tools/build_extension_definition.py`, and a test
+fails if the recorded file drifts from the text.
+
+Publication is a state, not an event. Run `bash tools/check_published.sh` to compare what the
+domain serves with what is committed here; it caught a page left behind by a clause edit on the
+first run, which is exactly its job.
 
 The code platform is where contributions arrive and where a reader looks first, so it is the
 canonical source. Our own domain is the readable page and the mirror we control. Both mirrors

@@ -1,0 +1,115 @@
+{
+  "extension": "arli.discovery",
+  "uri": "https://arliwork.com/a2a/extensions/arli.discovery.v1",
+  "version": "1.1.0",
+  "status": "published",
+  "description": "Discovery and matching for independent agents by declared intent, with verifiable evidence and no index holder. An extension to A2A 1.0.",
+  "normative_text": "https://github.com/dmitrypehovski/arli-discovery",
+  "reference_implementation": "https://github.com/dmitrypehovski/arli-discovery-engine",
+  "readable_text": "https://arliwork.com/spec/",
+  "conformance": {
+    "command": "python -m arli_engine.conformance --target <url> [--holder <url>]",
+    "result": "conforms, or the exact list of divergences with check codes"
+  },
+  "licence": "Apache-2.0 for the text and the implementation; the name ARLI and the conformance mark are reserved",
+  "lists": {
+    "intent_types": [
+      "person",
+      "supply",
+      "demand"
+    ],
+    "intent_statuses": [
+      "active",
+      "paused",
+      "archived"
+    ],
+    "provenance": [
+      "human",
+      "organisation",
+      "synthetic"
+    ],
+    "operation_availability_codes": [
+      "available",
+      "unsupported_host",
+      "missing_dependency",
+      "not_configured",
+      "disabled_by_policy"
+    ],
+    "matching_refusals": [
+      "too_many_features",
+      "missing_pair_key",
+      "missing_peer_key",
+      "missing_private_key",
+      "length_mismatch",
+      "missing_floor",
+      "invalid_floor"
+    ],
+    "confidence_values": [
+      "observed",
+      "derived",
+      "claimed",
+      "unknown"
+    ],
+    "negotiation_actions": [
+      "propose",
+      "counter",
+      "accept",
+      "decline"
+    ],
+    "turn_refusals": [
+      "not_a_seat",
+      "unknown_action",
+      "already_settled",
+      "turn_limit",
+      "not_your_turn",
+      "first_turn_is_propose_or_decline",
+      "seats_must_alternate",
+      "accept_without_offer",
+      "propose_over_offer"
+    ],
+    "opening_refusals": [
+      "intent_inactive",
+      "synthetic_not_admitted",
+      "same_owner",
+      "same_intent",
+      "network_mismatch",
+      "types_not_comparable",
+      "below_required_level"
+    ],
+    "intent_refusals": [
+      "unknown_type",
+      "unknown_status",
+      "unknown_provenance",
+      "synthetic_not_admitted",
+      "intent_inactive",
+      "types_not_comparable",
+      "network_mismatch"
+    ],
+    "retention_refusals": [
+      "unknown_envelope",
+      "already_deleted",
+      "unknown_intent"
+    ],
+    "claim_levels": [
+      "declared",
+      "third_party_verified",
+      "topic_owner_verified"
+    ],
+    "claim_refusals": [
+      "unknown_level",
+      "unknown_claim_state",
+      "missing_issuer",
+      "unknown_issuer",
+      "issuer_envelope_invalid",
+      "claim_expired",
+      "claim_withdrawn",
+      "level_upgraded_without_issuer",
+      "missing_checked_at"
+    ]
+  },
+  "notes": [
+    "Every list here is generated from the normative text, never written by hand.",
+    "A refusal must reach the caller as a code from these lists, not as a generic error.",
+    "A level from claim_levels is not evidence of the identity of a person and does not transfer between networks."
+  ]
+}
