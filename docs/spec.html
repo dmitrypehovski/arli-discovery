@@ -114,6 +114,8 @@
       <p class="clause"><span class="id">4.13</span>A feature MUST be split at its first colon into a namespace and a value; a feature without a colon is a value.</p>
       <p class="clause"><span class="id">4.14</span>A namespace in the goods list (<code>need</code>, <code>want</code>, <code>offer</code>, <code>supply</code>, <code>skill</code>, <code>service</code>, <code>commodity</code>, <code>product</code>) MUST reduce to its value alone, so that a need and an offer of the same commodity are one token. Any other namespace MUST keep the form <code>namespace:value</code>. An unknown namespace MUST be treated as an attribute, because failing to match is a smaller error than matching something nobody declared.</p>
       <p class="clause"><span class="id">4.15</span>The intersection MUST be compared as canonical tokens, and each side MUST be told which of its own features matched in that side's own spelling. An implementation that compares the strings as typed MUST NOT be reported as conformant.</p>
+      <p class="clause"><span class="id">4.16</span>A holder MAY issue one key for an epoch instead of one key per session. The epoch MUST have a stated duration, MUST NOT be extended silently, and MUST NOT live for ever: a table that never expires is a dictionary an attacker accumulates against. <code>arli/psi/keys</code> and <code>arli/psi/sign</code> MUST carry <code>epoch_id</code>, an epoch key MUST be bound to the session it was issued to, and a session whose epoch has expired MUST be refused with <code>missing_private_key</code> rather than signed under a new key.</p>
+      <p class="clause"><span class="id">4.17</span>The holder's signed tokens over its own list MAY be computed once per epoch and reused across every seeker in it, and MUST NOT outlive the epoch that produced them. Within one epoch two seekers receive the same token for the same item, so a holder MUST state this where it states its epoch duration. Signing the seeker's blinded values is per exchange and MUST NOT be cached across sessions.</p>
   </section>
   <section id="5-evidence-envelope">
     <h2>5. Evidence envelope</h2>
@@ -198,7 +200,7 @@
       <p class="clause"><span class="id">12.6</span>A refusal about the call itself MUST carry a code from the closed list: <code>missing_field</code>, <code>unknown_method</code>, <code>parse_error</code>, <code>bad_type</code>, <code>nonce_too_short</code>, <code>purpose_required</code>, <code>rate_limited</code>. A caller MUST be able to tell a malformed call from a failure of the implementation.</p>
   </section>
     <footer>
-      <p>85 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
+      <p>87 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
       Licence: Apache-2.0. The name ARLI and the conformance mark are reserved, see TRADEMARK.md.</p>
       <p>Conformance suite:<br><code>python -m arli_engine.conformance --target &lt;url&gt; [--holder &lt;url&gt;]</code></p>
     </footer>

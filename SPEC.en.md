@@ -93,6 +93,17 @@ something nobody declared.
 own features matched in that side's own spelling. An implementation that compares the strings as typed
 MUST NOT be reported as conformant.
 
+4.16. A holder MAY issue one key for an epoch instead of one key per session. The epoch MUST have a
+stated duration, MUST NOT be extended silently, and MUST NOT live for ever: a table that never expires is a
+dictionary an attacker accumulates against. `arli/psi/keys` and `arli/psi/sign` MUST carry `epoch_id`, an
+epoch key MUST be bound to the session it was issued to, and a session whose epoch has expired MUST be
+refused with `missing_private_key` rather than signed under a new key.
+
+4.17. The holder's signed tokens over its own list MAY be computed once per epoch and reused across every
+seeker in it, and MUST NOT outlive the epoch that produced them. Within one epoch two seekers receive the
+same token for the same item, so a holder MUST state this where it states its epoch duration. Signing the
+seeker's blinded values is per exchange and MUST NOT be cached across sessions.
+
 ## 5. Evidence envelope
 
 5.1. Every conclusion and every refusal MUST be accompanied by an envelope with the fields:
