@@ -94,8 +94,10 @@ def test_every_legal_answer_has_a_named_cost():
 def test_the_publication_plan_names_both_addresses_honestly():
     plan = _read("PUBLISHING.md")
     assert "https://github.com/dmitrypehovski/arli-discovery" in plan
+    assert "https://github.com/dmitrypehovski/arli-engine" in plan
     assert "personal account" in plan
-    assert "keeps its history and its links" in plan
+    # перенос в организацию обязан быть назван как сохраняющий историю и ссылки
+    assert "a transfer keeps the history and the links" in plan
 
 
 def test_the_house_readme_points_at_the_draft():
