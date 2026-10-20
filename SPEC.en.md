@@ -1,4 +1,4 @@
-# ARLI Discovery Extension v1.2.0
+# ARLI Discovery Extension v1.3.0
 
 Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence.
 Extension URI: `https://arliwork.com/a2a/extensions/arli.discovery.v1`.
@@ -159,6 +159,13 @@ identifier until a separate re-confirmation.
 `compromised`, `principal_request`, `policy`) and the registry refusal list (`unknown_key`,
 `key_revoked`, `key_expired`, `key_not_yet_valid`, `principal_revoked`,
 `principal_not_confirmed`, `unknown_revocation_reason`).
+9.4. An agent MUST answer `arli/identity/sign` with a signature over the nonce it was given, in the
+bytes exactly as they were sent. The signature MUST be ES256 in the raw R||S form, base64url, and the
+answer MUST name the key that signed. This is how a party holding a card can require the address to
+prove that the same key answers there.
+9.5. An agent MUST answer at most one signed nonce per address and purpose per minute, and MUST
+record the request in its journal when the asking party named itself. The method is otherwise a
+signing oracle.
 
 ## 10. Conformance
 
@@ -214,5 +221,6 @@ the statement that the implementation relays and verifies statements made by oth
 none of its own.
 
 12.6. A refusal about the call itself MUST carry a code from the closed list: `missing_field`,
-`unknown_method`, `parse_error`, `bad_type`. A caller MUST be able to tell a malformed call from
+`unknown_method`, `parse_error`, `bad_type`, `nonce_too_short`, `purpose_required`,
+`rate_limited`. A caller MUST be able to tell a malformed call from
 a failure of the implementation.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ARLI Discovery Extension v1.2.0</title>
+  <title>ARLI Discovery Extension v1.3.0</title>
   <style>
     :root { --accent: #c4a97d; --ink: #1c1c1a; --muted: #6f6b62; --rule: #e6e1d6; }
     * { box-sizing: border-box; }
@@ -35,7 +35,7 @@
 <body>
   <div class="wrap">
     <header>
-      <h1>ARLI Discovery Extension v1.2.0</h1>
+      <h1>ARLI Discovery Extension v1.3.0</h1>
     <p>Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence. Extension URI: <code>https://arliwork.com/a2a/extensions/arli.discovery.v1</code>.</p>
     <p>The words <strong>MUST</strong>, <strong>MUST NOT</strong>, <strong>SHOULD</strong> and <strong>MAY</strong> carry the force they carry in normative documents. An implementation that conforms to this text is answered "conforms" by the conformance suite (<code>python -m arli_engine.conformance</code>). Where the suite and this text disagree, the suite is right: the suite is the promise.</p>
     <p>Scope. The extension describes the discovery layer only: the intent object, the honest capability list, key agreement, matching, the evidence envelope, the negotiation grammar and human consent. Transport, tasks and messages are taken from A2A as they are.</p>
@@ -142,6 +142,8 @@
       <p class="clause"><span class="id">9.1</span>A key change MUST invalidate the previous card.</p>
       <p class="clause"><span class="id">9.2</span>Principal revocation MUST be a separate record with a time and a reason and MUST NOT be replaced by a key change. Revocation MUST block the issuing of new keys under the same identifier until a separate re-confirmation.</p>
       <p class="clause"><span class="id">9.3</span>The capability document MUST publish the key revocation reasons (<code>rotated</code>, <code>compromised</code>, <code>principal_request</code>, <code>policy</code>) and the registry refusal list (<code>unknown_key</code>, <code>key_revoked</code>, <code>key_expired</code>, <code>key_not_yet_valid</code>, <code>principal_revoked</code>, <code>principal_not_confirmed</code>, <code>unknown_revocation_reason</code>).</p>
+      <p class="clause"><span class="id">9.4</span>An agent MUST answer <code>arli/identity/sign</code> with a signature over the nonce it was given, in the bytes exactly as they were sent. The signature MUST be ES256 in the raw R||S form, base64url, and the answer MUST name the key that signed. This is how a party holding a card can require the address to prove that the same key answers there.</p>
+      <p class="clause"><span class="id">9.5</span>An agent MUST answer at most one signed nonce per address and purpose per minute, and MUST record the request in its journal when the asking party named itself. The method is otherwise a signing oracle.</p>
   </section>
   <section id="10-conformance">
     <h2>10. Conformance</h2>
@@ -172,10 +174,10 @@
       <p class="clause"><span class="id">13.5</span>A network MAY require a minimum level for a pair. A pair below that level MUST NOT open, and the refusal MUST carry the code <code>below_required_level</code>.</p>
       <p class="clause"><span class="id">13.6</span>A level MUST NOT be presented as evidence of the identity of the person behind an agent, and MUST NOT be treated as transferable between networks. Both prohibitions MUST appear in the capability document.</p>
       <p class="clause"><span class="id">13.7</span>The capability document MUST publish the levels, the states, the claim refusal list, and the statement that the implementation relays and verifies statements made by others and issues none of its own.</p>
-      <p class="clause"><span class="id">12.6</span>A refusal about the call itself MUST carry a code from the closed list: <code>missing_field</code>, <code>unknown_method</code>, <code>parse_error</code>, <code>bad_type</code>. A caller MUST be able to tell a malformed call from a failure of the implementation.</p>
+      <p class="clause"><span class="id">12.6</span>A refusal about the call itself MUST carry a code from the closed list: <code>missing_field</code>, <code>unknown_method</code>, <code>parse_error</code>, <code>bad_type</code>, <code>nonce_too_short</code>, <code>purpose_required</code>, <code>rate_limited</code>. A caller MUST be able to tell a malformed call from a failure of the implementation.</p>
   </section>
     <footer>
-      <p>76 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
+      <p>78 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
       Licence: Apache-2.0. The name ARLI and the conformance mark are reserved, see TRADEMARK.md.</p>
       <p>Conformance suite:<br><code>python -m arli_engine.conformance --target &lt;url&gt; [--holder &lt;url&gt;]</code></p>
     </footer>

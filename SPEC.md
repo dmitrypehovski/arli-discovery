@@ -1,4 +1,4 @@
-# ARLI Discovery Extension v1.2.0
+# ARLI Discovery Extension v1.3.0
 
 Лицензия: Apache-2.0 (см. `LICENSE`, `NOTICE`, `TRADEMARK.md`).
 Нормативный текст для публикации: `spec/SPEC.en.md` (английский). Этот файл рабочий
@@ -163,6 +163,13 @@ MUST быть отклонён с кодом `invalid_floor`.
 `principal_request`, `policy`) и перечень причин отказа реестра (`unknown_key`, `key_revoked`,
 `key_expired`, `key_not_yet_valid`, `principal_revoked`, `principal_not_confirmed`,
 `unknown_revocation_reason`).
+9.4. Агент MUST отвечать на `arli/identity/sign` подписью над полученным случаем, над теми же
+байтами, что были присланы. Подпись MUST быть ES256 в виде сырой пары R||S, base64url, и ответ MUST
+называть ключ, которым подписано. Так сторона, держащая карточку, требует от адреса доказательства,
+что по нему отвечает тот же ключ.
+9.5. Агент MUST отвечать не чаще одного подписанного случая на адрес и назначение в минуту и MUST
+записывать запрос в свой журнал, если спрашивающая сторона себя назвала. Иначе метод становится
+подписывающим оракулом.
 
 ## 10. Соответствие
 
@@ -218,5 +225,7 @@ MUST проверять конверт выдающего прежде, чем �
 не выдаёт.
 
 12.6. Отказ по самому вызову MUST нести код из закрытого перечня: `missing_field`,
-`unknown_method`, `parse_error`, `bad_type`. Вызывающий MUST уметь отличить кривой вызов от
+`unknown_method`, `parse_error`, `bad_type`, `nonce_too_short`, `purpose_required`,
+`rate_limited`.
+Вызывающий MUST уметь отличить кривой вызов от
 сбоя реализации.
