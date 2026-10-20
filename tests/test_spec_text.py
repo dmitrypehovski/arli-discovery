@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 CANONICAL_LICENSE_SHA256 = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
-EXTENSION_VERSION = "1.3.0"
+EXTENSION_VERSION = "1.4.0"
 CYRILLIC = re.compile(r"[А-Яа-яЁё]")
 
 
