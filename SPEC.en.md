@@ -1,4 +1,4 @@
-# ARLI Discovery Extension v1.3.0
+# ARLI Discovery Extension v1.4.0
 
 Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence.
 Extension URI: `https://arliwork.com/a2a/extensions/arli.discovery.v1`.
@@ -78,6 +78,20 @@ in place of a score MUST NOT be used.
 4.11. The capability document MUST publish the closed list of seven matching refusal codes:
 `too_many_features`, `missing_pair_key`, `missing_peer_key`, `missing_private_key`,
 `length_mismatch`, `missing_floor`, `invalid_floor`.
+
+4.12. Before hashing, a feature MUST be reduced to a canonical token by the published vocabulary:
+the string MUST be lower-cased and trimmed, and runs of whitespace, hyphens and underscores MUST be
+reduced to one hyphen.
+4.13. A feature MUST be split at its first colon into a namespace and a value; a feature without a
+colon is a value.
+4.14. A namespace in the goods list (`need`, `want`, `offer`, `supply`, `skill`, `service`,
+`commodity`, `product`) MUST reduce to its value alone, so that a need and an offer of the same
+commodity are one token. Any other namespace MUST keep the form `namespace:value`. An unknown
+namespace MUST be treated as an attribute, because failing to match is a smaller error than matching
+something nobody declared.
+4.15. The intersection MUST be compared as canonical tokens, and each side MUST be told which of its
+own features matched in that side's own spelling. An implementation that compares the strings as typed
+MUST NOT be reported as conformant.
 
 ## 5. Evidence envelope
 

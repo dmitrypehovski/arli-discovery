@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ARLI Discovery Extension v1.3.0</title>
+  <title>ARLI Discovery Extension v1.4.0</title>
   <style>
     :root { --accent: #c4a97d; --ink: #1c1c1a; --muted: #6f6b62; --rule: #e6e1d6; }
     * { box-sizing: border-box; }
@@ -39,7 +39,7 @@
 <body>
   <div class="wrap">
     <header>
-      <h1>ARLI Discovery Extension v1.3.0</h1>
+      <h1>ARLI Discovery Extension v1.4.0</h1>
       <div class="plain-intro">
         <p><b>What this is.</b> The rules of the discovery extension, written so two independent teams
         can build it and agree on the result. It is the text implementations are measured against.</p>
@@ -110,6 +110,10 @@
       <p class="clause"><span class="id">4.9</span>A match score MUST either be computed with a declared method or be absent. A constant in place of a score MUST NOT be used.</p>
       <p class="clause"><span class="id">4.10</span>The number of features on the other side MUST NOT be disclosed.</p>
       <p class="clause"><span class="id">4.11</span>The capability document MUST publish the closed list of seven matching refusal codes: <code>too_many_features</code>, <code>missing_pair_key</code>, <code>missing_peer_key</code>, <code>missing_private_key</code>, <code>length_mismatch</code>, <code>missing_floor</code>, <code>invalid_floor</code>.</p>
+      <p class="clause"><span class="id">4.12</span>Before hashing, a feature MUST be reduced to a canonical token by the published vocabulary: the string MUST be lower-cased and trimmed, and runs of whitespace, hyphens and underscores MUST be reduced to one hyphen.</p>
+      <p class="clause"><span class="id">4.13</span>A feature MUST be split at its first colon into a namespace and a value; a feature without a colon is a value.</p>
+      <p class="clause"><span class="id">4.14</span>A namespace in the goods list (<code>need</code>, <code>want</code>, <code>offer</code>, <code>supply</code>, <code>skill</code>, <code>service</code>, <code>commodity</code>, <code>product</code>) MUST reduce to its value alone, so that a need and an offer of the same commodity are one token. Any other namespace MUST keep the form <code>namespace:value</code>. An unknown namespace MUST be treated as an attribute, because failing to match is a smaller error than matching something nobody declared.</p>
+      <p class="clause"><span class="id">4.15</span>The intersection MUST be compared as canonical tokens, and each side MUST be told which of its own features matched in that side's own spelling. An implementation that compares the strings as typed MUST NOT be reported as conformant.</p>
   </section>
   <section id="5-evidence-envelope">
     <h2>5. Evidence envelope</h2>
@@ -191,7 +195,7 @@
       <p class="clause"><span class="id">12.6</span>A refusal about the call itself MUST carry a code from the closed list: <code>missing_field</code>, <code>unknown_method</code>, <code>parse_error</code>, <code>bad_type</code>, <code>nonce_too_short</code>, <code>purpose_required</code>, <code>rate_limited</code>. A caller MUST be able to tell a malformed call from a failure of the implementation.</p>
   </section>
     <footer>
-      <p>78 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
+      <p>82 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
       Licence: Apache-2.0. The name ARLI and the conformance mark are reserved, see TRADEMARK.md.</p>
       <p>Conformance suite:<br><code>python -m arli_engine.conformance --target &lt;url&gt; [--holder &lt;url&gt;]</code></p>
     </footer>
