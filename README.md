@@ -27,6 +27,10 @@ The reference implementation is not published yet: see `PUBLISHING.md`.
 - `PROPOSAL-trust-anchor.md`: the draft for legal review about verifying features. Marked
   as not normative and not implemented: the normative text makes no promise about trust
   levels, and a test fails if it ever does before the legal answer.
+- `PROPOSAL-network-negotiation.md`: the draft clause for negotiating between two machines,
+  with the finding that produced it (the log assumes one shared file) and the ripple it will
+  cause. Marked as not normative and not implemented for the same reason: the text is the
+  promise, and it has not changed.
 - `docs/spec.html`: the readable page, generated from `SPEC.en.md`, never hand-written.
 - `tools/build_page.py`: the generator.
 - `LICENSE`, `NOTICE`, `TRADEMARK.md`: the licence terms of the text itself.
