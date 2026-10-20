@@ -1,4 +1,4 @@
-# ARLI Discovery Extension v1.7.0
+# ARLI Discovery Extension v1.8.0
 
 Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence.
 Extension URI: `https://arliwork.com/a2a/extensions/arli.discovery.v1`.
@@ -188,6 +188,21 @@ answers as refusals.
 `not_a_seat`. `arli/opportunity/decide` MUST refuse a decision while the outcome is anything other than
 `agreed`, with `not_agreed`, and MUST refuse an actor holding no seat with `not_a_seat`. Consent is not a
 refusal and a refusal is not consent.
+
+6.18. A room MAY accept an agent that has no address it can be reached at, by a registration the agent
+initiates: the agent presents its signed card, the room issues a nonce, the agent signs that nonce with the key
+its card names, and the room issues a token and a queue in which calls for that agent are held. The proof of
+the key is the signature over the room's nonce, and there is no address behind it. A room that accepts this
+MUST state, in the record it returns and wherever it lists the agent, that there is no address and that
+reachability is outbound only: an agent reached this way MUST NOT be described as if the room could dial it.
+
+6.19. The token issued at registration MUST be issued with a term and MUST NOT be renewed silently. Once the
+term has run out the token MUST be refused by name, so that a client can tell an expired token from a stranger,
+and an agent whose term has run out MUST register again rather than continue under a token nobody issued.
+
+6.20. A registration whose term has run out, or which has not been polled within the deployment's stated idle
+limit, MUST leave the listing, and a search MUST NOT ask it: a name nobody answers to is worse than a short
+list, and waiting out a timeout per search is a cost charged to everybody else.
 
 ## 7. Consent
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ARLI Discovery Extension v1.7.0</title>
+  <title>ARLI Discovery Extension v1.8.0</title>
   <style>
     :root { --accent: #c4a97d; --ink: #1c1c1a; --muted: #6f6b62; --rule: #e6e1d6; }
     * { box-sizing: border-box; }
@@ -39,7 +39,7 @@
 <body>
   <div class="wrap">
     <header>
-      <h1>ARLI Discovery Extension v1.7.0</h1>
+      <h1>ARLI Discovery Extension v1.8.0</h1>
       <div class="plain-intro">
         <p><b>What this is.</b> The rules of the discovery extension, written so two independent teams
         can build it and agree on the result. It is the text implementations are measured against.</p>
@@ -148,6 +148,9 @@
       <p class="clause"><span class="id">6.15</span>A direct exchange MUST use the same methods, the same turn grammar, the same witness rule and the same vocabulary as one run through a room. The only difference is who starts.</p>
       <p class="clause"><span class="id">6.16</span>The response of <code>arli/negotiation/turn</code> MUST carry <code>outcome</code>, <code>turn_count</code> and <code>turns_remaining</code>. <code>outcome</code> MUST be null while the negotiation is open, and MUST be <code>agreed</code> or <code>declined</code> once it has settled, so that the other side can act on it without guessing. A peer MUST NOT have to infer agreement from the fact that a negotiation has stopped accepting turns: two implementations did exactly that and read each other's answers as refusals.</p>
       <p class="clause"><span class="id">6.17</span>The capability document MUST publish the closed list of two decision refusal codes: <code>not_agreed</code> and <code>not_a_seat</code>. <code>arli/opportunity/decide</code> MUST refuse a decision while the outcome is anything other than <code>agreed</code>, with <code>not_agreed</code>, and MUST refuse an actor holding no seat with <code>not_a_seat</code>. Consent is not a refusal and a refusal is not consent.</p>
+      <p class="clause"><span class="id">6.18</span>A room MAY accept an agent that has no address it can be reached at, by a registration the agent initiates: the agent presents its signed card, the room issues a nonce, the agent signs that nonce with the key its card names, and the room issues a token and a queue in which calls for that agent are held. The proof of the key is the signature over the room's nonce, and there is no address behind it. A room that accepts this MUST state, in the record it returns and wherever it lists the agent, that there is no address and that reachability is outbound only: an agent reached this way MUST NOT be described as if the room could dial it.</p>
+      <p class="clause"><span class="id">6.19</span>The token issued at registration MUST be issued with a term and MUST NOT be renewed silently. Once the term has run out the token MUST be refused by name, so that a client can tell an expired token from a stranger, and an agent whose term has run out MUST register again rather than continue under a token nobody issued.</p>
+      <p class="clause"><span class="id">6.20</span>A registration whose term has run out, or which has not been polled within the deployment's stated idle limit, MUST leave the listing, and a search MUST NOT ask it: a name nobody answers to is worse than a short list, and waiting out a timeout per search is a cost charged to everybody else.</p>
   </section>
   <section id="7-consent">
     <h2>7. Consent</h2>
@@ -205,7 +208,7 @@
       <p class="clause"><span class="id">12.6</span>A refusal about the call itself MUST carry a code from the closed list: <code>missing_field</code>, <code>unknown_method</code>, <code>parse_error</code>, <code>bad_type</code>, <code>nonce_too_short</code>, <code>purpose_required</code>, <code>rate_limited</code>. A caller MUST be able to tell a malformed call from a failure of the implementation.</p>
   </section>
     <footer>
-      <p>92 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
+      <p>95 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
       Licence: Apache-2.0. The name ARLI and the conformance mark are reserved, see TRADEMARK.md.</p>
       <p>Conformance suite:<br><code>python -m arli_engine.conformance --target &lt;url&gt; [--holder &lt;url&gt;]</code></p>
     </footer>
