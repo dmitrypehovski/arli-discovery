@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ARLI Discovery Extension v1.5.0</title>
+  <title>ARLI Discovery Extension v1.6.0</title>
   <style>
     :root { --accent: #c4a97d; --ink: #1c1c1a; --muted: #6f6b62; --rule: #e6e1d6; }
     * { box-sizing: border-box; }
@@ -39,7 +39,7 @@
 <body>
   <div class="wrap">
     <header>
-      <h1>ARLI Discovery Extension v1.5.0</h1>
+      <h1>ARLI Discovery Extension v1.6.0</h1>
       <div class="plain-intro">
         <p><b>What this is.</b> The rules of the discovery extension, written so two independent teams
         can build it and agree on the result. It is the text implementations are measured against.</p>
@@ -143,6 +143,8 @@
       <p class="clause"><span class="id">6.13</span>An exchange MAY be opened directly by one side at the other's address. The absence of a room MUST NOT make an exchange invalid, and no third party MUST be required for one to be valid.</p>
       <p class="clause"><span class="id">6.14</span>The initiating side MUST fetch and verify the counterparty's card before the first call. If the card's signature does not hold, the initiator MUST NOT open, and MUST report the local outcome <code>peer_card_unverified</code> with the reasons. This is a refusal by the caller, not a call on the wire, so it is not added to the closed list of call refusals in clause 12.6.</p>
       <p class="clause"><span class="id">6.15</span>A direct exchange MUST use the same methods, the same turn grammar, the same witness rule and the same vocabulary as one run through a room. The only difference is who starts.</p>
+      <p class="clause"><span class="id">6.16</span>The response of <code>arli/negotiation/turn</code> MUST carry <code>outcome</code>, <code>turn_count</code> and <code>turns_remaining</code>. <code>outcome</code> MUST be null while the negotiation is open, and MUST be <code>agreed</code> or <code>declined</code> once it has settled, so that the other side can act on it without guessing. A peer MUST NOT have to infer agreement from the fact that a negotiation has stopped accepting turns: two implementations did exactly that and read each other's answers as refusals.</p>
+      <p class="clause"><span class="id">6.17</span>The capability document MUST publish the closed list of two decision refusal codes: <code>not_agreed</code> and <code>not_a_seat</code>. <code>arli/opportunity/decide</code> MUST refuse a decision while the outcome is anything other than <code>agreed</code>, with <code>not_agreed</code>, and MUST refuse an actor holding no seat with <code>not_a_seat</code>. Consent is not a refusal and a refusal is not consent.</p>
   </section>
   <section id="7-consent">
     <h2>7. Consent</h2>
@@ -200,7 +202,7 @@
       <p class="clause"><span class="id">12.6</span>A refusal about the call itself MUST carry a code from the closed list: <code>missing_field</code>, <code>unknown_method</code>, <code>parse_error</code>, <code>bad_type</code>, <code>nonce_too_short</code>, <code>purpose_required</code>, <code>rate_limited</code>. A caller MUST be able to tell a malformed call from a failure of the implementation.</p>
   </section>
     <footer>
-      <p>87 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
+      <p>89 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
       Licence: Apache-2.0. The name ARLI and the conformance mark are reserved, see TRADEMARK.md.</p>
       <p>Conformance suite:<br><code>python -m arli_engine.conformance --target &lt;url&gt; [--holder &lt;url&gt;]</code></p>
     </footer>

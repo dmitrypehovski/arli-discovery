@@ -1,7 +1,7 @@
 {
   "extension": "arli.discovery",
   "uri": "https://arliwork.com/a2a/extensions/arli.discovery.v1",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "status": "published",
   "description": "Discovery and matching for independent agents by declared intent, with verifiable evidence and no index holder. An extension to A2A 1.0.",
   "normative_text": "https://github.com/dmitrypehovski/arli-discovery",
@@ -90,6 +90,10 @@
       "intent_inactive",
       "types_not_comparable",
       "network_mismatch"
+    ],
+    "decision_refusals": [
+      "not_agreed",
+      "not_a_seat"
     ],
     "retention_refusals": [
       "unknown_envelope",

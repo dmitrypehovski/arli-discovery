@@ -1,4 +1,4 @@
-# ARLI Discovery Extension v1.5.0
+# ARLI Discovery Extension v1.6.0
 
 Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence.
 Extension URI: `https://arliwork.com/a2a/extensions/arli.discovery.v1`.
@@ -162,6 +162,17 @@ card's signature does not hold, the initiator MUST NOT open, and MUST report the
 is not added to the closed list of call refusals in clause 12.6.
 6.15. A direct exchange MUST use the same methods, the same turn grammar, the same witness rule and the
 same vocabulary as one run through a room. The only difference is who starts.
+
+6.16. The response of `arli/negotiation/turn` MUST carry `outcome`, `turn_count` and `turns_remaining`.
+`outcome` MUST be null while the negotiation is open, and MUST be `agreed` or `declined` once it has settled,
+so that the other side can act on it without guessing. A peer MUST NOT have to infer agreement from the fact
+that a negotiation has stopped accepting turns: two implementations did exactly that and read each other's
+answers as refusals.
+
+6.17. The capability document MUST publish the closed list of two decision refusal codes: `not_agreed` and
+`not_a_seat`. `arli/opportunity/decide` MUST refuse a decision while the outcome is anything other than
+`agreed`, with `not_agreed`, and MUST refuse an actor holding no seat with `not_a_seat`. Consent is not a
+refusal and a refusal is not consent.
 
 ## 7. Consent
 

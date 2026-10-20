@@ -38,6 +38,7 @@ LISTS = {
     "6.6": "turn_refusals",
     "6.7": "opening_refusals",
     "6.9": "intent_refusals",
+    "6.17": "decision_refusals",
     "8.5": "retention_refusals",
     "12.2": "binding_naming_rule_has_no_codes",
     "13.1": "claim_levels",

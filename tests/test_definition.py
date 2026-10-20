@@ -53,9 +53,12 @@ def test_every_published_list_matches_the_text_it_comes_from():
     expected = build_definition(markdown)["lists"]
     published = _definition()["lists"]
     assert published == expected
-    # перечни не пустые и не выродились в один код
+    # A list of one is a list that stopped checking anything. Two is one short of that, but the text names
+    # this pair outright (clause 6.17: the decision call can refuse in exactly two ways), so the floor for it
+    # is two and the reason is written here rather than the list being padded to look respectable.
     for name, codes in published.items():
-        assert len(codes) >= 3, f"{name} looks broken: {codes}"
+        floor = 2 if name == "decision_refusals" else 3
+        assert len(codes) >= floor, f"{name} looks broken: {codes}"
 
 
 def test_the_pair_level_refusals_include_the_code_from_clause_13_5():
