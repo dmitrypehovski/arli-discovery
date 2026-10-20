@@ -1,24 +1,30 @@
 # Publication plan for the extension
 
-Status: **the text is published, the code is held.** As of 20.10.2026 the normative text and
-its history are readable at https://arliwork.com/spec/, published at
-https://github.com/dmitrypehovski/arli-discovery and mirrored at
-https://arliwork.com/plugin/arli-spec.git. Nothing is listed in a public index, and no
-announcement has been made, so this is publication to whoever looks rather than a launch.
+Status: **published.** As of 20.10.2026 the normative text, its history and the reference
+implementation are public. Nothing is listed in a public index and no announcement has been
+made, so this is publication to whoever looks rather than a launch.
 
-Which address is which. The code hosting platform is where contributions happen and where a
-reader looks first, so that is the canonical source; our own domain is the readable page and
-the mirror we control. Both carry the same text, and the version line at the top of the text
-says which version the reader is holding.
+Addresses, and which one is which:
 
-Where it sits today, plainly: a personal account, because the company has no organisation on
-that platform. Moving a repository into an organisation keeps its history and its links, so
-this is a starting position, not a final one.
+- https://github.com/dmitrypehovski/arli-discovery, the normative text and its history
+- https://github.com/dmitrypehovski/arli-engine, the reference implementation
+- https://arliwork.com/spec/, the readable page, generated from the text
+- https://arliwork.com/plugin/arli-spec.git and .../arli-engine.git, mirrors on our own domain
 
-The reference implementation is prepared and one command away from publication. It is held on
-one item of the checklist below: the export-control review of shipping an implementation of
-ECDH and blind RSA signatures, with the rotation of keys described in the text. Hold lifted or
-confirmed, it goes out the same day.
+The code platform is where contributions arrive and where a reader looks first, so it is the
+canonical source. Our own domain is the readable page and the mirror we control. Both mirrors
+carry the same commit as the platform, checked by fingerprint.
+
+Two things said plainly rather than discovered later. Both repositories sit under a personal
+account, because the company has no organisation on that platform yet; a transfer keeps the
+history and the links, so this is a starting position. And the comments inside the code are in
+Russian while the documentation and the specification are in English.
+
+One item went out unanswered, by the decision of the holder on 20.10.2026: the export-control
+review of publishing an implementation of ECDH and blind RSA signatures, with the key rotation
+described in the text. The item is recorded here as an open risk, not as a settled question,
+and it belongs in front of counsel. If counsel narrows it, the narrowing applies to later
+versions; it cannot un-publish what is already readable.
 
 ## What we publish, and what we keep
 

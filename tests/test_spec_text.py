@@ -81,8 +81,9 @@ def test_the_house_rules_are_stated():
     plan = _read("PUBLISHING.md")
     for kept in ("network and the service", "conformance mark"):
         assert kept in plan
-    # состояние публикации обязано быть названо точно: текст вышел, код держим
-    assert "the text is published, the code is held" in plan
+    # состояние публикации обязано быть названо точно: вышли и текст, и код
+    assert "Status: **published.**" in plan
+    assert "went out unanswered" in plan
     policy = _read("TRADEMARK.md")
     assert "ARLI verified" in policy
 
