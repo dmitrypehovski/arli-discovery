@@ -95,6 +95,12 @@
       "third_party_verified",
       "topic_owner_verified"
     ],
+    "call_refusals": [
+      "missing_field",
+      "unknown_method",
+      "parse_error",
+      "bad_type"
+    ],
     "claim_refusals": [
       "unknown_level",
       "unknown_claim_state",

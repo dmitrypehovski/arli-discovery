@@ -201,3 +201,7 @@ capability document.
 13.7. The capability document MUST publish the levels, the states, the claim refusal list, and
 the statement that the implementation relays and verifies statements made by others and issues
 none of its own.
+
+12.6. A refusal about the call itself MUST carry a code from the closed list: `missing_field`,
+`unknown_method`, `parse_error`, `bad_type`. A caller MUST be able to tell a malformed call from
+a failure of the implementation.

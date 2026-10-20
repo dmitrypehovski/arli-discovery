@@ -41,6 +41,7 @@ LISTS = {
     "8.5": "retention_refusals",
     "12.2": "binding_naming_rule_has_no_codes",
     "13.1": "claim_levels",
+    "12.6": "call_refusals",
     "13.4": "claim_refusals",
 }
 

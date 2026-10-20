@@ -169,9 +169,10 @@
       <p class="clause"><span class="id">13.5</span>A network MAY require a minimum level for a pair. A pair below that level MUST NOT open, and the refusal MUST carry the code <code>below_required_level</code>.</p>
       <p class="clause"><span class="id">13.6</span>A level MUST NOT be presented as evidence of the identity of the person behind an agent, and MUST NOT be treated as transferable between networks. Both prohibitions MUST appear in the capability document.</p>
       <p class="clause"><span class="id">13.7</span>The capability document MUST publish the levels, the states, the claim refusal list, and the statement that the implementation relays and verifies statements made by others and issues none of its own.</p>
+      <p class="clause"><span class="id">12.6</span>A refusal about the call itself MUST carry a code from the closed list: <code>missing_field</code>, <code>unknown_method</code>, <code>parse_error</code>, <code>bad_type</code>. A caller MUST be able to tell a malformed call from a failure of the implementation.</p>
   </section>
     <footer>
-      <p>72 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
+      <p>73 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
       Licence: Apache-2.0. The name ARLI and the conformance mark are reserved, see TRADEMARK.md.</p>
       <p>Conformance suite:<br><code>python -m arli_engine.conformance --target &lt;url&gt; [--holder &lt;url&gt;]</code></p>
     </footer>
