@@ -1,4 +1,4 @@
-# ARLI Discovery Extension v1.1.0
+# ARLI Discovery Extension v1.2.0
 
 Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence.
 Extension URI: `https://arliwork.com/a2a/extensions/arli.discovery.v1`.
@@ -106,7 +106,8 @@ MUST NOT be declared a refusal.
 6.6. A refusal MUST carry a code from the closed turn list:
 `not_a_seat`, `unknown_action`, `already_settled`, `turn_limit`, `not_your_turn`,
 `first_turn_is_propose_or_decline`, `seats_must_alternate`, `accept_without_offer`,
-`propose_over_offer`.
+`propose_over_offer`, `not_a_witness`, `witness_without_proof`, `witness_card_unverified`,
+`witness_seat_mismatch`, `witness_proof_invalid`, `witness_mismatch`.
 6.7. A pair MUST NOT be opened if at least one intent is not active, if it is synthetic in
 a network declared human, if the owner is the same, if the intents coincide, if the sides
 are from different networks or if the types are not complementary. A refusal MUST carry a
@@ -117,6 +118,16 @@ turn limit and the action list.
 6.9. The capability document MUST publish the intent types, the statuses, the admitted
 provenance and the intent refusal list: `unknown_type`, `unknown_status`, `unknown_provenance`,
 `synthetic_not_admitted`, `intent_inactive`, `types_not_comparable`, `network_mismatch`.
+6.10. A side MAY record a turn taken by the counterparty in its own journal, so that both
+journals hold the same sequence without a shared file between them. This MUST be done with the
+method `arli/negotiation/witness`. A turn taken by the agent itself MUST be taken with
+`arli/negotiation/turn`; witnessing MUST NOT be used for one's own seat.
+6.11. A witness request MUST carry the speaker's signed agent card and the envelope the speaker
+received for its own turn. The card MUST verify by the rules of clause 2, the name in the card
+MUST equal the seat witnessed, and the envelope MUST verify with the key from that card and MUST
+name the same seat and action. A turn MUST NOT be recorded without a proof that passes.
+6.12. A witnessed turn MUST be legal in the receiving side's own journal: the seats alternate,
+the turn limit of clause 6.5 applies, and a settled negotiation accepts nothing.
 
 ## 7. Consent
 

@@ -1,7 +1,7 @@
 {
   "extension": "arli.discovery",
   "uri": "https://arliwork.com/a2a/extensions/arli.discovery.v1",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "status": "published",
   "description": "Discovery and matching for independent agents by declared intent, with verifiable evidence and no index holder. An extension to A2A 1.0.",
   "normative_text": "https://github.com/dmitrypehovski/arli-discovery",
@@ -65,7 +65,13 @@
       "first_turn_is_propose_or_decline",
       "seats_must_alternate",
       "accept_without_offer",
-      "propose_over_offer"
+      "propose_over_offer",
+      "not_a_witness",
+      "witness_without_proof",
+      "witness_card_unverified",
+      "witness_seat_mismatch",
+      "witness_proof_invalid",
+      "witness_mismatch"
     ],
     "opening_refusals": [
       "intent_inactive",

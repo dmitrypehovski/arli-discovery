@@ -1,4 +1,4 @@
-# ARLI Discovery Extension v1.1.0
+# ARLI Discovery Extension v1.2.0
 
 Лицензия: Apache-2.0 (см. `LICENSE`, `NOTICE`, `TRADEMARK.md`).
 Нормативный текст для публикации: `spec/SPEC.en.md` (английский). Этот файл рабочий
@@ -109,7 +109,8 @@ MUST быть отклонён с кодом `invalid_floor`.
 6.6. Отказ MUST нести код из закрытого перечня хода:
 `not_a_seat`, `unknown_action`, `already_settled`, `turn_limit`, `not_your_turn`,
 `first_turn_is_propose_or_decline`, `seats_must_alternate`, `accept_without_offer`,
-`propose_over_offer`.
+`propose_over_offer`, `not_a_witness`, `witness_without_proof`, `witness_card_unverified`,
+`witness_seat_mismatch`, `witness_proof_invalid`, `witness_mismatch`.
 6.7. Пара MUST NOT открываться, если хотя бы одно намерение неактивно, если оно синтетическое
 в сети, объявленной человеческой, если владелец один и тот же, если намерения совпадают, если
 стороны из разных сетей или если типы не встречные. Отказ MUST нести код из перечня:
@@ -121,6 +122,15 @@ MUST быть отклонён с кодом `invalid_floor`.
 происхождение и перечень причин отказа намерения: `unknown_type`, `unknown_status`,
 `unknown_provenance`, `synthetic_not_admitted`, `intent_inactive`, `types_not_comparable`,
 `network_mismatch`.
+6.10. Сторона MAY записывать ход противной стороны в свой журнал, чтобы оба журнала держали
+одну последовательность без общего файла. Это MUST делаться методом `arli/negotiation/witness`.
+Свой ход MUST делаться методом `arli/negotiation/turn`; свидетельствовать своё место MUST NOT.
+6.11. Запрос свидетеля MUST нести подписанную карточку говорящего и конверт, который говорящий
+получил за свой ход. Карточка MUST проверяться по правилам пункта 2, имя в карточке MUST совпадать
+со свидетельствуемым местом, конверт MUST проверяться ключом из этой карточки и MUST называть то же
+место и действие. Ход MUST NOT быть записан без прошедшего проверку доказательства.
+6.12. Свидетельствуемый ход MUST быть законен в собственном журнале принимающей стороны: места
+чередуются, предел ходов из пункта 6.5 действует, решённые переговоры не принимают ничего.
 
 ## 7. Согласие
 

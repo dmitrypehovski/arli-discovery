@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ARLI Discovery Extension v1.1.0</title>
+  <title>ARLI Discovery Extension v1.2.0</title>
   <style>
     :root { --accent: #c4a97d; --ink: #1c1c1a; --muted: #6f6b62; --rule: #e6e1d6; }
     * { box-sizing: border-box; }
@@ -35,7 +35,7 @@
 <body>
   <div class="wrap">
     <header>
-      <h1>ARLI Discovery Extension v1.1.0</h1>
+      <h1>ARLI Discovery Extension v1.2.0</h1>
     <p>Extension to A2A 1.0 for discovering independent agents by intent with verifiable evidence. Extension URI: <code>https://arliwork.com/a2a/extensions/arli.discovery.v1</code>.</p>
     <p>The words <strong>MUST</strong>, <strong>MUST NOT</strong>, <strong>SHOULD</strong> and <strong>MAY</strong> carry the force they carry in normative documents. An implementation that conforms to this text is answered "conforms" by the conformance suite (<code>python -m arli_engine.conformance</code>). Where the suite and this text disagree, the suite is right: the suite is the promise.</p>
     <p>Scope. The extension describes the discovery layer only: the intent object, the honest capability list, key agreement, matching, the evidence envelope, the negotiation grammar and human consent. Transport, tasks and messages are taken from A2A as they are.</p>
@@ -113,10 +113,13 @@
       <p class="clause"><span class="id">6.3</span>The first turn MUST be made by the initiator and MUST be <code>propose</code> or <code>decline</code>.</p>
       <p class="clause"><span class="id">6.4</span><code>accept</code> MUST be legal only immediately after a <code>propose</code> from the other side.</p>
       <p class="clause"><span class="id">6.5</span>The turn limit MUST be 12. At the limit the negotiation MUST remain unsettled; it MUST NOT be declared a refusal.</p>
-      <p class="clause"><span class="id">6.6</span>A refusal MUST carry a code from the closed turn list: <code>not_a_seat</code>, <code>unknown_action</code>, <code>already_settled</code>, <code>turn_limit</code>, <code>not_your_turn</code>, <code>first_turn_is_propose_or_decline</code>, <code>seats_must_alternate</code>, <code>accept_without_offer</code>, <code>propose_over_offer</code>.</p>
+      <p class="clause"><span class="id">6.6</span>A refusal MUST carry a code from the closed turn list: <code>not_a_seat</code>, <code>unknown_action</code>, <code>already_settled</code>, <code>turn_limit</code>, <code>not_your_turn</code>, <code>first_turn_is_propose_or_decline</code>, <code>seats_must_alternate</code>, <code>accept_without_offer</code>, <code>propose_over_offer</code>, <code>not_a_witness</code>, <code>witness_without_proof</code>, <code>witness_card_unverified</code>, <code>witness_seat_mismatch</code>, <code>witness_proof_invalid</code>, <code>witness_mismatch</code>.</p>
       <p class="clause"><span class="id">6.7</span>A pair MUST NOT be opened if at least one intent is not active, if it is synthetic in a network declared human, if the owner is the same, if the intents coincide, if the sides are from different networks or if the types are not complementary. A refusal MUST carry a code from the list: <code>intent_inactive</code>, <code>synthetic_not_admitted</code>, <code>same_owner</code>, <code>same_intent</code>, <code>network_mismatch</code>, <code>types_not_comparable</code>, <code>below_required_level</code>.</p>
       <p class="clause"><span class="id">6.8</span>Both lists MUST be published by machine in the capability document together with the turn limit and the action list.</p>
       <p class="clause"><span class="id">6.9</span>The capability document MUST publish the intent types, the statuses, the admitted provenance and the intent refusal list: <code>unknown_type</code>, <code>unknown_status</code>, <code>unknown_provenance</code>, <code>synthetic_not_admitted</code>, <code>intent_inactive</code>, <code>types_not_comparable</code>, <code>network_mismatch</code>.</p>
+      <p class="clause"><span class="id">6.10</span>A side MAY record a turn taken by the counterparty in its own journal, so that both journals hold the same sequence without a shared file between them. This MUST be done with the method <code>arli/negotiation/witness</code>. A turn taken by the agent itself MUST be taken with <code>arli/negotiation/turn</code>; witnessing MUST NOT be used for one's own seat.</p>
+      <p class="clause"><span class="id">6.11</span>A witness request MUST carry the speaker's signed agent card and the envelope the speaker received for its own turn. The card MUST verify by the rules of clause 2, the name in the card MUST equal the seat witnessed, and the envelope MUST verify with the key from that card and MUST name the same seat and action. A turn MUST NOT be recorded without a proof that passes.</p>
+      <p class="clause"><span class="id">6.12</span>A witnessed turn MUST be legal in the receiving side's own journal: the seats alternate, the turn limit of clause 6.5 applies, and a settled negotiation accepts nothing.</p>
   </section>
   <section id="7-consent">
     <h2>7. Consent</h2>
@@ -172,7 +175,7 @@
       <p class="clause"><span class="id">12.6</span>A refusal about the call itself MUST carry a code from the closed list: <code>missing_field</code>, <code>unknown_method</code>, <code>parse_error</code>, <code>bad_type</code>. A caller MUST be able to tell a malformed call from a failure of the implementation.</p>
   </section>
     <footer>
-      <p>73 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
+      <p>76 clauses in 13 sections. Source: <code>SPEC.en.md</code>.
       Licence: Apache-2.0. The name ARLI and the conformance mark are reserved, see TRADEMARK.md.</p>
       <p>Conformance suite:<br><code>python -m arli_engine.conformance --target &lt;url&gt; [--holder &lt;url&gt;]</code></p>
     </footer>
